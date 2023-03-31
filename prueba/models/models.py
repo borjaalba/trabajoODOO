@@ -1,18 +1,9 @@
 # -*- coding: utf-8 -*-
+from odoo import fields, models
 
-# from odoo import models, fields, api
-
-
-# class prueba(models.Model):
-#     _name = 'prueba.prueba'
-#     _description = 'prueba.prueba'
-
-#     name = fields.Char()
-#     value = fields.Integer()
-#     value2 = fields.Float(compute="_value_pc", store=True)
-#     description = fields.Text()
-#
-#     @api.depends('value')
-#     def _value_pc(self):
-#         for record in self:
-#             record.value2 = float(record.value) / 100
+class Ruta(models.Model):
+    _name = 'ruta'
+    _description = 'Módulo para generar rutas en Google Maps'
+    start_point = fields.Char('Punto de inicio')
+    end_point = fields.Char('Punto de fin')
+    waypoints = fields.Char('Puntos intermedios')

@@ -1,22 +1,20 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "prueba",
+    'name': "Ruta de entrega",
 
     'summary': """
-        Short (1 phrase/line) summary of the module's purpose, used as
-        subtitle on modules listing or apps.openerp.com""",
+        Módulo para la gestión de rutas de entrega""",
 
     'description': """
-        Long description of module's purpose
+        Módulo para la gestión de rutas de entrega
     """,
 
-    'author': "My Company",
-    'website': "http://www.yourcompany.com",
+    'author': "Grupo SIE",
 
     # Categories can be used to filter modules in modules listing
     # Check https://github.com/odoo/odoo/blob/15.0/odoo/addons/base/data/ir_module_category_data.xml
     # for the full list
-    'category': 'Uncategorized',
+    'category': 'Sales',
     'version': '0.1',
 
     # any module necessary for this one to work correctly
@@ -25,11 +23,16 @@
     # always loaded
     'data': [
         # 'security/ir.model.access.csv',
-        'views/views.xml',
-        'views/templates.xml',
+        'views/menu.xml',
+        'views/route.xml',
+        'views/config.xml',
+        'views/menu2.xml',
     ],
     # only loaded in demonstration mode
     'demo': [
         'demo/demo.xml',
     ],
+
+    'application': True,
+    'license': 'LGPL-3'
 }
