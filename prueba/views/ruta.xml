@@ -1,0 +1,23 @@
+<odoo>
+    <record model="ir.ui.view" id="ruta_form_view">
+        <field name="name">Ruta Form</field>
+        <field name="model">rutas.ruta</field>
+        <field name="arch" type="xml">
+            <form string="Ruta">
+                <group>
+                    <field name="origen"/>
+                    <field name="destino"/>
+                    <field name="waypoints"/>
+                </group>
+                <!--
+                <group>
+                    <field name="distancia"/>
+                    <field name="duracion"/>
+                </group>
+                -->
+            </form>
+        </field>
+    </record>
+
+
+</odoo>

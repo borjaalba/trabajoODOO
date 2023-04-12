@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id= "ruta_property_action " model="ir.actions.act_window">
+        <field name = "name">Propiedades</field>
+        <field name = "res_model">rutas.property</field>
+        <field name = "view_mode">form</field>
+    </record>
+</odoo>

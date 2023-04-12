@@ -22,17 +22,14 @@
 
     # always loaded
     'data': [
-        # 'security/ir.model.access.csv',
-        'views/menu.xml',
-        'views/route.xml',
-        'views/config.xml',
-        'views/menu2.xml',
-    ],
-    # only loaded in demonstration mode
-    'demo': [
-        'demo/demo.xml',
+        'security/ir.model.access.csv',
+        'views/ruta.xml',
+        'views/ruta_propiedades.xml',
+        'views/ruta_menu.xml',
+        # 'views/book.xml',
     ],
 
     'application': True,
-    'license': 'LGPL-3'
+    'installable': True,   
+    'license': 'AGPL-3'
 }
