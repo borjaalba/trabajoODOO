@@ -22,11 +22,10 @@
 
     # always loaded
     'data': [
-        'security/ir.model.access.csv',
-        'views/ruta.xml',
         'views/ruta_propiedades.xml',
-        'views/ruta_menu.xml',
-        # 'views/book.xml',
+        # 'views/ruta.xml',
+        'views/ruta_menus.xml',
+        'security/ir.model.access.csv',
     ],
 
     'application': True,
