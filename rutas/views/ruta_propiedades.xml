@@ -1,8 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <record id= "ruta_property_action" model="ir.actions.act_window">
+
+    <!-- Formulario con las propiedades: Origen, destino y waypoints (una debajo de la otra)-->
+    <record id="ruta_property_form" model="ir.ui.view">
+        <field name="name">ruta.property.form</field>
+        <field name="model">ruta.property</field>
+        <field name="arch" type="xml">
+            <form string="Properties">
+                <group>
+                    <field name="origen"/>
+                    <field name="destino"/>
+                    <field name="waypoints"/>
+                </group>
+            </form>
+        </field>
+    </record>
+    
+
+    <!-- <record id= "ruta_property_action" model="ir.actions.act_window">
         <field name = "name">Properties</field>
         <field name = "res_model">ruta.property</field>
         <field name = "view_mode">form</field>
-    </record>
+    </record> -->
+
+    
 </odoo>

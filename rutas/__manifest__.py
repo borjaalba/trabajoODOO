@@ -29,6 +29,6 @@
     ],
 
     'application': True,
-    'installable': True,   
-    'license': 'AGPL-3'
+    # 'installable': True,   
+    # 'license': 'AGPL-3'
 }
