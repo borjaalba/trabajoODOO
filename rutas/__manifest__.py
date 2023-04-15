@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "Ruta de entrega",
+    'name': "ruta",
 
     'summary': """
         Módulo para la gestión de rutas de entrega""",
@@ -23,7 +23,6 @@
     # always loaded
     'data': [
         'views/ruta_propiedades.xml',
-        # 'views/ruta.xml',
         'views/ruta_menus.xml',
         'security/ir.model.access.csv',
     ],
