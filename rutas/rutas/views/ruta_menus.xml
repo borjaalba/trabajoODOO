@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf8"?>
-<odoo>
-    <menuitem id="ruta_menu_root" name="Ruta_de_Entrega">
-        <menuitem id="ruta_menu" name="Rutas">
-                <menuitem id="ruta_property_menu_action" action="ruta_property_action"/>
-            </menuitem>
-    </menuitem>
-</odoo>
