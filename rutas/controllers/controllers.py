@@ -19,3 +19,16 @@
 #         return http.request.render('prueba.object', {
 #             'object': obj
 #         })
+
+
+from odoo import http
+
+class RutaController(http.Controller):
+
+    @http.route('/ruta/property/calculardistancia', type='json', auth='user')
+    def calcular_distancia(self, origen, destino):
+        distancia, duracion = self.get_distancia(origen, destino)
+        return {'distancia': distancia, 'duracion': duracion}
+
+    def get_distancia(self, origen, destino):
+        return origen +" "+ destino
