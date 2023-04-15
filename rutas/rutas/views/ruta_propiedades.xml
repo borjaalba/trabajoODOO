@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Formulario con las propiedades: Origen, destino y waypoints (una debajo de la otra)-->
+    
+
+    <record id= "ruta_property_action" model="ir.actions.act_window">
+        <field name = "name">Properties</field>
+        <field name = "res_model">ruta.property</field>
+        <field name = "view_mode">form</field>
+    </record>
+
+    <!-- <record id="ruta_property_form" model="ir.ui.view">
+    <field name="name">ruta.property.form</field>
+    <field name="model">ruta.property</field>
+    <field name="arch" type="xml">
+        <form string="Ruta">
+            <header>
+                <field name="origen"/>
+                <field name="destino"/>
+                <button name="calcular_distancia" string="Calcular ruta" type="object" class="btn-primary" icon="fa-rocket"/>
+            </header>
+            <group>
+                <field name="waypoints"/>
+                <field name="distancia"/>
+                <field name="duracion"/>
+            </group>
+        </form>
+    </field>
+</record> -->
+    <record id="ruta_property_form" model="ir.ui.view">
+        <field name="name">ruta.property.form</field>
+        <field name="model">ruta.property</field>
+        <field name="arch" type="xml">
+            <form string="Ruta">
+                <div class="oe_title">
+                    <h1>
+                        <field name="origen" placeholder="Origen"/>
+                    </h1>
+                </div>
+                <div class="oe_title">
+                    <h1>
+                        <field name="destino" placeholder="Destino"/>
+                    </h1>
+                </div>
+                <div class="oe_button_box" name="button_box">
+                    <h1>
+                        <button name="calcular_distancia" string="Calcular ruta" type="object" class="btn-primary" icon="fa-rocket"/>
+                    </h1>
+                </div>
+                <group>
+                    <field name="waypoints"/>
+                    <field name="distancia"/>
+                    <field name="duracion"/>
+                </group>
+            </form>
+        </field>
+    </record>
+</odoo>
