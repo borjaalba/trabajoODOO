@@ -24,7 +24,7 @@ class RutaProperty(models.Model):
         if(self.waypoints==False):
             puntos_intermedios = [self.destino]
         else:
-            puntos_intermedios = self.waypoints.split(',')
+            puntos_intermedios = self.waypoints.split(';')
             puntos_intermedios.append(self.destino)
         
         # Obtención de la información de la ruta
