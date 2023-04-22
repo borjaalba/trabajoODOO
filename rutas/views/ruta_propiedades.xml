@@ -17,10 +17,11 @@
                             <field name="name" placeholder="Nombre de la ruta" required="1"/>
                         </h1>
                     </div>
+                    <b>WARNING:</b> Para que funcione el cálculo de la ruta hay que seguir el siguiente formato: <i>Lugar, Pais</i>
                     <group>
-                        <field name="origen" required="1"/>
+                        <field name="origen" placeholder="Sevilla, Spain" required="1"/>
                         <field name="waypoints"/>
-                        <field name="destino" required="1"/>
+                        <field name="destino" placeholder="Madrid, Spain" required="1"/>
                     </group>
 
                     <button name="calcular_ruta" string="Calcular ruta" type="object" class="btn-primary" icon="fa-rocket"/>
