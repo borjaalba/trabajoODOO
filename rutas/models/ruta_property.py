@@ -22,6 +22,7 @@ class RutaProperty(models.Model):
 
         #Puntos por los que se debe de pasar
         puntos_intermedios = self.waypoints.split(',')
+        print(f"Puntos intermedios: {puntos_intermedios}")
         puntos_intermedios.append(self.destino)
 
         # Obtención de la información de la ruta
