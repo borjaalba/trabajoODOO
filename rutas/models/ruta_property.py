@@ -14,8 +14,10 @@ class RutaProperty(models.Model):
     origen = fields.Char('Punto de inicio', required=True)
     destino = fields.Char('Punto de fin', required=True)
     waypoints = fields.Char('Puntos intermedios')
-    distancia = fields.Float('Distancia', readonly=True)
-    duracion = fields.Float('Duración', readonly=True)
+    distancia = fields.Float('Distancia en km', readonly=True)
+    duracion = fields.Float('Duración (horas:minutos)', readonly=True)
+
+    ruta_calculada = fields.Boolean('Ruta calculada', readonly=True, default=False)
 
     @api.constrains('origen', 'destino', 'waypoints')
     def checkea_origen_destino(self):
@@ -61,6 +63,11 @@ class RutaProperty(models.Model):
         for x in directions_result[0]['legs']:
             distanciaMetros += x['distance']['value']
             tiempoSegundos += x['duration']['value']
+
+        self.distancia = distanciaMetros/1000
+        self.duracion = (tiempoSegundos/60)/24
+
+        self.ruta_calculada = True
 
         # Extracción de las coordenadas de la ruta
         # route = []
