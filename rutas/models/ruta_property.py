@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
-from odoo import fields, models
+from odoo import api, fields, models
+from odoo.exceptions import ValidationError
 import googlemaps
 from datetime import datetime
+import re
 
 class RutaProperty(models.Model):
     _name = "ruta.property"
@@ -14,6 +16,28 @@ class RutaProperty(models.Model):
     waypoints = fields.Char('Puntos intermedios')
     distancia = fields.Float('Distancia', readonly=True)
     duracion = fields.Float('Duración', readonly=True)
+
+    @api.constrains('origen', 'destino', 'waypoints')
+    def checkea_origen_destino(self):
+        formato_lugar = r'^[a-zA-Z\s]+,[a-zA-Z\s]+$'
+
+        if not re.match(formato_lugar, self.origen):
+            raise ValidationError("El formato del origen es incorrecto")
+        
+        if not re.match(formato_lugar, self.destino):
+            raise ValidationError("El formato del destino es incorrecto")
+        
+        if self.waypoints!=False:
+            if ';' in self.waypoints:
+                for punto in self.waypoints.split(';'):
+                    if not re.match(formato_lugar, punto):
+                        raise ValidationError("El formato de los puntos intermedios es incorrecto")
+            
+            elif not re.match(formato_lugar, self.waypoints):    
+               raise ValidationError("El formato de los puntos intermedios es incorrecto")
+
+        if self.origen == self.destino:
+            raise ValidationError("El origen y el destino no pueden ser el mismo lugar")
 
     def calcular_ruta(self):
         apiGoogle = 'AIzaSyBmvKq4xWz9axrxSqTsuiop51YWBRU6gpA'
@@ -67,3 +91,5 @@ class RutaProperty(models.Model):
         #     'distancia': distanciaMetros,
         #     'duracion': tiempoSegundos,
         # })
+
+    
