@@ -21,10 +21,12 @@ class RutaProperty(models.Model):
         gmaps = googlemaps.Client(key=apiGoogle) # Reemplazar con su clave de API
 
         #Puntos por los que se debe de pasar
-        puntos_intermedios = self.waypoints.split(',')
-        print(f"Puntos intermedios: {puntos_intermedios}")
-        puntos_intermedios.append(self.destino)
-
+        if(self.waypoints==False):
+            puntos_intermedios = [self.destino]
+        else:
+            puntos_intermedios = self.waypoints.split(',')
+            puntos_intermedios.append(self.destino)
+        
         # Obtención de la información de la ruta
         now = datetime.now()
         directions_result = gmaps.directions(self.origen, self.destino, waypoints = puntos_intermedios, mode="driving", departure_time=now, language="es")
