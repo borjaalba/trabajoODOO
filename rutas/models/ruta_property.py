@@ -4,6 +4,7 @@ from odoo.exceptions import ValidationError
 import googlemaps
 from datetime import datetime
 import re
+import gmplot
 
 class RutaProperty(models.Model):
     _name = "ruta.property"
@@ -16,8 +17,19 @@ class RutaProperty(models.Model):
     waypoints = fields.Char('Puntos intermedios')
     distancia = fields.Float('Distancia en km', readonly=True)
     duracion = fields.Float('Duración (horas:minutos)', readonly=True)
+    # camino = fields.Text('La direccion que se debe de seguir es la siguiente')
+    mapa = fields.Html("El mapa es el siguiente")
 
     ruta_calculada = fields.Boolean('Ruta calculada', readonly=True, default=False)
+
+    @api.constrains('name')
+    def checkea_nombre(self):
+        #No se pueden crear rutas con el mismo nombre
+        if self.search_count([('name', '=', self.name)]) > 1:
+            raise ValidationError("Ya existe una ruta con ese nombre")
+        
+        
+        
 
     @api.constrains('origen', 'destino', 'waypoints')
     def checkea_origen_destino(self):
@@ -45,7 +57,7 @@ class RutaProperty(models.Model):
         apiGoogle = 'AIzaSyBmvKq4xWz9axrxSqTsuiop51YWBRU6gpA'
 
         gmaps = googlemaps.Client(key=apiGoogle) # Reemplazar con su clave de API
-
+        self.lista = "12"
         #Puntos por los que se debe de pasar
         if(self.waypoints==False):
             puntos_intermedios = [self.destino]
@@ -67,36 +79,32 @@ class RutaProperty(models.Model):
         self.distancia = distanciaMetros/1000
         self.duracion = (tiempoSegundos/60)/24
 
+        route = []
+        steps = directions_result[0]['legs'][0]['steps']
+        for step in steps:
+            instruction = step['html_instructions']
+            instruction = instruction.replace('<b>', '').replace('</b>', '.').replace('<div style="font-size:0.9em">', ' ').replace('</div>', ' ').replace('/<wbr/>', ' ')
+            route.append(instruction)
+        #     print("\nRuta establecida:")
+        # for i, instruction in enumerate(route):
+        #     print(f"\n{i}. {instruction}")
+        # print("\n")
+        # print("Ha llegado a su destino camarada de Odoo")
+
+
+        # self.camino = route
         self.ruta_calculada = True
 
-        # Extracción de las coordenadas de la ruta
-        # route = []
-        # steps = directions_result[0]['legs'][0]['steps']
-        # for step in steps:
-        #     start_location = step['start_location']
-        #     end_location = step['end_location']
-        #     route.append((start_location['lat'], start_location['lng']))
-        #     route.append((end_location['lat'], end_location['lng']))
+        # Configuración del mapa
+        gmap = gmplot.GoogleMapPlotter(route[0][0], route[0][1], 8)
 
-        #     # Configuración del mapa
-        #     gmap = gmplot.GoogleMapPlotter(route[0][0], route[0][1], 8)
+        # Dibujar la ruta en el mapa
+        latitude_list, longitude_list = zip(*route)
+        gmap.plot(latitude_list, longitude_list, 'cornflowerblue', edge_width=5)
 
-        #     # Dibujar la ruta en el mapa
-        #     latitude_list, longitude_list = zip(*route)
-        #     gmap.plot(latitude_list, longitude_list, 'cornflowerblue', edge_width=5)
+        # Mostrar el mapa en un archivo HTML
+        res = gmap.draw("ruta"+self.origen+"_"+self.destino+"."+"html")
 
-        #     # Mostrar el mapa en un archivo HTML
-        #     gmap.draw("ruta.html")
-
-        print(distanciaMetros)
-        print(tiempoSegundos)
-
-        # return self.env['Rutas.ruta'].create({
-        #     'origen': origen,
-        #     'destino': destino,
-        #     'waypoints': puntos_intermedios,
-        #     'distancia': distanciaMetros,
-        #     'duracion': tiempoSegundos,
-        # })
+        self.mapa = res 
 
     
