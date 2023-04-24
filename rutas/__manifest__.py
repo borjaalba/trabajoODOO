@@ -23,6 +23,7 @@
     # always loaded
     'data': [
         'views/ruta_propiedades.xml',
+        'views/ruta_lista.xml',
         'views/ruta_menus.xml',
         'security/ir.model.access.csv',
     ],

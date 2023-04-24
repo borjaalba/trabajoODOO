@@ -57,7 +57,7 @@ class RutaProperty(models.Model):
         apiGoogle = 'AIzaSyBmvKq4xWz9axrxSqTsuiop51YWBRU6gpA'
 
         gmaps = googlemaps.Client(key=apiGoogle) # Reemplazar con su clave de API
-        self.lista = "12"
+        # self.lista = "12"
         #Puntos por los que se debe de pasar
         if(self.waypoints==False):
             puntos_intermedios = [self.destino]
@@ -83,9 +83,9 @@ class RutaProperty(models.Model):
         steps = directions_result[0]['legs'][0]['steps']
         for step in steps:
             instruction = step['html_instructions']
-            instruction = instruction.replace('<b>', '').replace('</b>', '.').replace('<div style="font-size:0.9em">', ' ').replace('</div>', ' ').replace('/<wbr/>', ' ')
+            # instruction = instruction.replace('<b>', '').replace('</b>', '.').replace('<div style="font-size:0.9em">', ' ').replace('</div>', ' ').replace('/<wbr/>', ' ')
             route.append(instruction)
-        #     print("\nRuta establecida:")
+            
         # for i, instruction in enumerate(route):
         #     print(f"\n{i}. {instruction}")
         # print("\n")

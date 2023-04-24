@@ -30,7 +30,7 @@
                         <field name='ruta_calculada' invisible="1"/>
                         <field name="distancia" attrs="{'invisible': [('ruta_calculada', '=', False)]}"/>
                         <field name="duracion" widget='float_time' attrs="{'invisible': [('ruta_calculada', '=', False)]}"/>
-                        <!-- <field name="mapa" attrs="{'invisible': [('ruta_calculada', '=', False)]}"/> -->
+                        <field name="mapa" attrs="{'invisible': [('ruta_calculada', '=', False)]}"/>
                     </group>
                 </sheet>
             </form>
