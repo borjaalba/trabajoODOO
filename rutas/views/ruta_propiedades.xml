@@ -20,7 +20,7 @@
                     <b>WARNING:</b> Para que funcione el cálculo de la ruta hay que seguir el siguiente formato: <i>Lugar, Pais</i>
                     <group>
                         <field name="origen" placeholder="Sevilla, Spain" required="1"/>
-                        <field name="waypoints" placeholder="Galicia, Spain" />
+                        <field name="waypoints" placeholder="Galicia, Spain; Barcelona, Spain" />
                         <field name="destino" placeholder="Madrid, Spain" required="1"/>
                     </group>
                     <button name="calcular_ruta" string="Calcular ruta" type="object" class="btn-primary" icon="fa-rocket"/>
@@ -30,7 +30,7 @@
                         <field name='ruta_calculada' invisible="1"/>
                         <field name="distancia" attrs="{'invisible': [('ruta_calculada', '=', False)]}"/>
                         <field name="duracion" widget='float_time' attrs="{'invisible': [('ruta_calculada', '=', False)]}"/>
-                        <field name="mapa" attrs="{'invisible': [('ruta_calculada', '=', False)]}"/>
+                        <!-- <field name="mapa" data-trust="true" options="{'collaborative': true, 'resizable':true, 'codeview': true}" attrs="{'invisible': [('ruta_calculada', '=', False)]}"/> -->
                     </group>
                 </sheet>
             </form>

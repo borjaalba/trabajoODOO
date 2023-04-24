@@ -5,6 +5,7 @@ import googlemaps
 from datetime import datetime
 import re
 import gmplot
+# import folium
 
 class RutaProperty(models.Model):
     _name = "ruta.property"
@@ -17,8 +18,7 @@ class RutaProperty(models.Model):
     waypoints = fields.Char('Puntos intermedios')
     distancia = fields.Float('Distancia en km', readonly=True)
     duracion = fields.Float('Duración (horas:minutos)', readonly=True)
-    # camino = fields.Text('La direccion que se debe de seguir es la siguiente')
-    mapa = fields.Html("El mapa es el siguiente")
+    # mapa = fields.Char("Ruta")
 
     ruta_calculada = fields.Boolean('Ruta calculada', readonly=True, default=False)
 
@@ -28,12 +28,9 @@ class RutaProperty(models.Model):
         if self.search_count([('name', '=', self.name)]) > 1:
             raise ValidationError("Ya existe una ruta con ese nombre")
         
-        
-        
-
     @api.constrains('origen', 'destino', 'waypoints')
     def checkea_origen_destino(self):
-        formato_lugar = r'^[a-zA-Z\s]+,[a-zA-Z\s]+$'
+        formato_lugar = r'^[a-zA-ZñÑ\s]+,[a-zA-ZñÑ\s]+$'
 
         if not re.match(formato_lugar, self.origen):
             raise ValidationError("El formato del origen es incorrecto")
@@ -57,7 +54,7 @@ class RutaProperty(models.Model):
         apiGoogle = 'AIzaSyBmvKq4xWz9axrxSqTsuiop51YWBRU6gpA'
 
         gmaps = googlemaps.Client(key=apiGoogle) # Reemplazar con su clave de API
-        # self.lista = "12"
+
         #Puntos por los que se debe de pasar
         if(self.waypoints==False):
             puntos_intermedios = [self.destino]
@@ -79,32 +76,20 @@ class RutaProperty(models.Model):
         self.distancia = distanciaMetros/1000
         self.duracion = (tiempoSegundos/60)/24
 
-        route = []
-        steps = directions_result[0]['legs'][0]['steps']
-        for step in steps:
-            instruction = step['html_instructions']
-            # instruction = instruction.replace('<b>', '').replace('</b>', '.').replace('<div style="font-size:0.9em">', ' ').replace('</div>', ' ').replace('/<wbr/>', ' ')
-            route.append(instruction)
+        ruta = []
+        for step in directions_result[0]['legs'][0]['steps']:
+            if(len(ruta)<2):
+                start_location = step['start_location']
+                ruta.append((start_location['lat'], start_location['lng']))
             
-        # for i, instruction in enumerate(route):
-        #     print(f"\n{i}. {instruction}")
-        # print("\n")
-        # print("Ha llegado a su destino camarada de Odoo")
+            end_location = step['end_location']
+            ruta.append((end_location['lat'], end_location['lng']))
 
+        # mapa_html = folium.Map(location=ruta[0], zoom_start=8)
+        # folium.PolyLine(ruta, color="red", weight=2.5, opacity=1).add_to(mapa_html)
 
-        # self.camino = route
+        # self.mapa = mapa_html._repr_html_()
+
         self.ruta_calculada = True
-
-        # Configuración del mapa
-        gmap = gmplot.GoogleMapPlotter(route[0][0], route[0][1], 8)
-
-        # Dibujar la ruta en el mapa
-        latitude_list, longitude_list = zip(*route)
-        gmap.plot(latitude_list, longitude_list, 'cornflowerblue', edge_width=5)
-
-        # Mostrar el mapa en un archivo HTML
-        res = gmap.draw("ruta"+self.origen+"_"+self.destino+"."+"html")
-
-        self.mapa = res 
 
     
