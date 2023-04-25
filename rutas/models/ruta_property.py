@@ -5,7 +5,7 @@ import googlemaps
 from datetime import datetime
 import re
 import gmplot
-# import folium
+import folium
 
 class RutaProperty(models.Model):
     _name = "ruta.property"
@@ -18,7 +18,9 @@ class RutaProperty(models.Model):
     waypoints = fields.Char('Puntos intermedios')
     distancia = fields.Float('Distancia en km', readonly=True)
     duracion = fields.Float('Duración (horas:minutos)', readonly=True)
-    # mapa = fields.Char("Ruta")
+    coor_ini = fields.Char('Coordenadas de inicio')
+    coor_fin = fields.Char('Coordenadas de fin')
+    camino = fields.Text('Camino')
 
     ruta_calculada = fields.Boolean('Ruta calculada', readonly=True, default=False)
 
@@ -77,6 +79,7 @@ class RutaProperty(models.Model):
         self.duracion = (tiempoSegundos/60)/24
 
         ruta = []
+        camino = []
         for step in directions_result[0]['legs'][0]['steps']:
             if(len(ruta)<2):
                 start_location = step['start_location']
@@ -84,12 +87,12 @@ class RutaProperty(models.Model):
             
             end_location = step['end_location']
             ruta.append((end_location['lat'], end_location['lng']))
+            aux = step['html_instructions'].replace('<b>', '').replace('</b>', '.').replace('<div style="font-size:0.9em">', ' ').replace('</div>', ' ').replace('/<wbr/>', ' ')
+            camino.append(aux)
 
-        # mapa_html = folium.Map(location=ruta[0], zoom_start=8)
-        # folium.PolyLine(ruta, color="red", weight=2.5, opacity=1).add_to(mapa_html)
-
-        # self.mapa = mapa_html._repr_html_()
+        self.coor_fin = end_location
+        self.coor_ini = start_location
+        self.camino = camino
 
         self.ruta_calculada = True
-
-    
+        
