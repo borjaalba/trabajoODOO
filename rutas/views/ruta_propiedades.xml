@@ -19,9 +19,9 @@
                     </div>
                     <b>WARNING:</b> Para que funcione el cálculo de la ruta hay que seguir el siguiente formato: <i>Lugar, Pais</i>
                     <group>
-                        <field name="origen" placeholder="Sevilla, Spain" required="1"/>
-                        <field name="waypoints" placeholder="Galicia, Spain; Barcelona, Spain" />
-                        <field name="destino" placeholder="Madrid, Spain" required="1"/>
+                        <field name="origen" placeholder="Sevilla, España" required="1"/>
+                        <field name="waypoints" placeholder="Galicia, España; Barcelona, España" />
+                        <field name="destino" placeholder="Madrid, España" required="1"/>
                     </group>
                     <button name="calcular_ruta" string="Calcular ruta" type="object" class="btn-primary" icon="fa-rocket"/>
 
@@ -32,10 +32,31 @@
                         <field name="duracion" widget='float_time' attrs="{'invisible': [('ruta_calculada', '=', False)]}"/>
                         <field name="coor_ini" attrs="{'invisible': [('ruta_calculada', '=', False)]}"/>
                         <field name="coor_fin" attrs="{'invisible': [('ruta_calculada', '=', False)]}"/>
-                        <field name="camino" attrs="{'invisible': [('ruta_calculada', '=', False)]}"/>
+                        <field name="camino" class="textarea" attrs="{'invisible': [('ruta_calculada', '=', False)]}"/>
                     </group>
                 </sheet>
             </form>
+        </field>
+    </record>
+
+    <record id="ruta_property_action_lista" model="ir.actions.act_window">
+        <field name = "name">Lista rutas</field>
+        <field name = "res_model">ruta.property</field>
+        <field name = "view_mode">tree</field>
+    </record>
+
+  <record id="ruta_property_tree" model="ir.ui.view">
+        <field name="name">ruta.property.tree</field>
+        <field name="model">ruta.property</field>
+        <field name="arch" type="xml">
+            <tree string="Rutas">
+                <field name="name"/>
+                <field name="origen"/>
+                <field name="destino"/>
+                <field name="distancia"/>
+                <field name="duracion"/>
+                <field name="camino"/>
+            </tree>
         </field>
     </record>
 

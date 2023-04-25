@@ -4,8 +4,6 @@ from odoo.exceptions import ValidationError
 import googlemaps
 from datetime import datetime
 import re
-import gmplot
-import folium
 
 class RutaProperty(models.Model):
     _name = "ruta.property"
@@ -18,9 +16,9 @@ class RutaProperty(models.Model):
     waypoints = fields.Char('Puntos intermedios')
     distancia = fields.Float('Distancia en km', readonly=True)
     duracion = fields.Float('Duración (horas:minutos)', readonly=True)
-    coor_ini = fields.Char('Coordenadas de inicio')
-    coor_fin = fields.Char('Coordenadas de fin')
-    camino = fields.Text('Camino')
+    coor_ini = fields.Char('Coordenadas de inicio', readonly=True)
+    coor_fin = fields.Char('Coordenadas de fin', readonly=True)
+    camino = fields.Text('Camino', readonly=True)
 
     ruta_calculada = fields.Boolean('Ruta calculada', readonly=True, default=False)
 
@@ -92,7 +90,7 @@ class RutaProperty(models.Model):
 
         self.coor_fin = end_location
         self.coor_ini = start_location
-        self.camino = camino
+        self.camino = "\n".join([f"{i+1}. {x}" for i, x in enumerate(camino)])
 
         self.ruta_calculada = True
         

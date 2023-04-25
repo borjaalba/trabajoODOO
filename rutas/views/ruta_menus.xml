@@ -1,13 +1,9 @@
 <?xml version="1.0" encoding="utf8"?>
 <odoo>
-    <menuitem id="ruta_menu_root" name="Ruta_de_Entrega">
+    <menuitem id="ruta_menu_root" name="Ruta de Entrega">
         <menuitem id="ruta_menu" name="Rutas">
                 <menuitem id="ruta_property_menu_action" action="ruta_property_action"/>
                 <menuitem id="ruta_property_tree_action" action="ruta_property_action_lista"/>
-                <!-- <menuitem id="ruta_property_tree_action" action="ruta_property_action_caminos"/> -->
-            </menuitem>
-        <menuitem id="ruta_camino" name="Caminos">
-                <menuitem id="ruta_property_tree_action" action="ruta_property_action_caminos"/>
-            </menuitem>
+        </menuitem>
     </menuitem>
 </odoo>
