@@ -30,7 +30,9 @@
                         <field name='ruta_calculada' invisible="1"/>
                         <field name="distancia" attrs="{'invisible': [('ruta_calculada', '=', False)]}"/>
                         <field name="duracion" widget='float_time' attrs="{'invisible': [('ruta_calculada', '=', False)]}"/>
-                        <!-- <field name="mapa" data-trust="true" options="{'collaborative': true, 'resizable':true, 'codeview': true}" attrs="{'invisible': [('ruta_calculada', '=', False)]}"/> -->
+                        <field name="coor_ini" attrs="{'invisible': [('ruta_calculada', '=', False)]}"/>
+                        <field name="coor_fin" attrs="{'invisible': [('ruta_calculada', '=', False)]}"/>
+                        <field name="camino" attrs="{'invisible': [('ruta_calculada', '=', False)]}"/>
                     </group>
                 </sheet>
             </form>
