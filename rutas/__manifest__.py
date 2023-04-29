@@ -28,6 +28,4 @@
     ],
 
     'application': True,
-    # 'installable': True,   
-    # 'license': 'AGPL-3'
 }
